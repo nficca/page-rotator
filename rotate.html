@@ -9,11 +9,20 @@
 <body>
 	<div class="container full-pad">
 		<div class="row">
+			<div class="col-xs-12">
+				<h3>Page Rotator</h3>
+			</div>
+			<div class="col-xs-12">
+				<input id="degree-range" type="range" value="0" min="-180" max="180">
+			</div>
 			<div class="col-xs-4 only-left-pad">
 				Rotation degree:
 			</div>
-			<div class="col-xs-8 only-right-pad">
-				<input id="degree-range" type="range" value="0" min="-180" max="180">
+			<div class="col-xs-4 no-pad">
+				<input class="input-number" id="degree-number" type="number" value="0" min="-180" max="180">
+			</div>
+			<div class="col-xs-4 only-right-pad">
+				<button class="input-button" id="reset-button">Reset</button>
 			</div>
 		</div>
 	</div>
