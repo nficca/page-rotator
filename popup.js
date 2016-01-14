@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
 
 	// Elements
@@ -7,12 +6,30 @@ document.addEventListener('DOMContentLoaded', function() {
 	var resetButton = document.getElementById('reset-button');
 	var imgReplaceButton = document.getElementById('img-replace-button');
 
-	// Helper Functions
+	// Get current rotation (runs every time extension icon is clicked)
+	chrome.tabs.getSelected(null, function (tab) {
+		chrome.tabs.sendRequest(tab.id, {action: 'getRotation'}, function (response) {
+			var degree = response.degree;
+			if (!isNaN(degree) && -180 <= degree && degree <= 180) {
+				degreeRange.value = degree;
+				degreeNumber.value = degree;
+			}
+		})
+	});
+
+
+	// Helper functions
 	function rotateElement(degree) {
 		chrome.tabs.executeScript(null, {
 			code: 'var degree = '+degree+';'
 		}, function() {
 			chrome.tabs.executeScript(null, {file: "scripts/transform_style.js"});
+		});
+	}
+
+	function replaceImagesWithKittens() {
+		chrome.tabs.executeScript(null, {
+			file: "scripts/img_replace.js"
 		});
 	}
 
@@ -25,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		var i = 0,j = 0;
 		for (; i < _actions.length; ++i) {
 			if (Object.prototype.toString.call(elements) !== '[object Array]') {
-				console.log(Object.prototype.toString.call(elements));
 				elements.addEventListener(_actions[i], handler);
 			} else {
 				for (; j < elements.length; ++j) {
@@ -67,9 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	imgReplaceButton.addEventListener('click', function() {
-		chrome.tabs.executeScript(null, {
-			file: "scripts/img_replace.js"
-		});
+		replaceImagesWithKittens();
 	});
 
 });
