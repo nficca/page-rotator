@@ -5,8 +5,12 @@
   "description": "An extension that allows the user to rotate webpages!",
   "version": "1.0",
   "browser_action": {
-    "default_icon": "me.png",
     "default_popup": "rotate.html"
+  },
+  "icons": {
+    "16": "icon-16.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
   },
   "permissions": [
     "activeTab"
